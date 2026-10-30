@@ -1,0 +1,32 @@
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  background-color: var(--color-surface-secondary);
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid var(--color-link);
+  outline-offset: 3px;
+}
+
+
+.theme-toggle-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 20px 0;
+  box-sizing: border-box;
+}

@@ -1,31 +1,31 @@
+
 import { NavLink } from "react-router-dom";
+import { House, Search, CircleHelp, UserRound } from "lucide-react";
 import "../../styles/BottomNavigation.css";
 
 export default function BottomNavigation() {
   return (
-    <nav
-      className="bottom-nav"
-      aria-label="Navegación móvil"
-    >
+    <nav className="bottom-nav" aria-label="Navegación móvil">
       <NavLink to="/" end>
-        <span aria-hidden="true">⌂</span>
+        <House size={24} strokeWidth={1.8} aria-hidden="true" />
         <span>Inicio</span>
       </NavLink>
 
       <NavLink to="/recursos">
-        <span aria-hidden="true">⌕</span>
+        <Search size={24} strokeWidth={1.8} aria-hidden="true" />
         <span>Recursos</span>
       </NavLink>
 
       <NavLink to="/ayuda">
-        <span aria-hidden="true">?</span>
+        <CircleHelp size={24} strokeWidth={1.8} aria-hidden="true" />
         <span>Ayuda</span>
       </NavLink>
 
       <NavLink to="/login">
-        <span aria-hidden="true">♙</span>
+        <UserRound size={24} strokeWidth={1.8} aria-hidden="true" />
         <span>Perfil</span>
       </NavLink>
     </nav>
   );
 }
+
