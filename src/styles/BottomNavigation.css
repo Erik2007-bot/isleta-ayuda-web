@@ -30,11 +30,6 @@
   font-weight: 500;
 }
 
-.bottom-nav a span:first-child {
-  font-size: 24px;
-  line-height: 1;
-}
-
 .bottom-nav a.active {
   color: #176B55;
   font-weight: 700;
@@ -50,6 +45,18 @@
   .bottom-nav {
     display: none;
   }
+}
+
+
+.bottom-nav a svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.bottom-nav a {
+  min-height: 48px;
+  min-width: 60px;
 }
 
 

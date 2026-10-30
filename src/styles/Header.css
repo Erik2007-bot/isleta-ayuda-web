@@ -65,3 +65,36 @@
   }
 }
 
+.header__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.header__image {
+  width: 65px;
+  height: 65px;
+  object-fit: contain;
+}
+
+@media (min-width: 1024px) {
+  .header__logo {
+    justify-content: flex-start;
+  }
+
+  .header__image {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+
+@media (max-width: 1023px) {
+  .header {
+    display: none;
+  }
+}
+
+
+

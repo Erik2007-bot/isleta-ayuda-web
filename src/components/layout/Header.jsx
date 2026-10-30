@@ -5,7 +5,12 @@ export default function Header() {
   return (
     <header className="header">
       <NavLink to="/" className="header__logo">
-        Isleta Ayuda
+        <img
+          src="/images/logo-isleta-ayuda.png"
+          alt=""
+          className="header__image"
+        />
+        <span>Isleta Ayuda</span>
       </NavLink>
 
       <nav aria-label="Navegación principal" className="header__nav">
@@ -17,3 +22,4 @@ export default function Header() {
     </header>
   );
 }
+
