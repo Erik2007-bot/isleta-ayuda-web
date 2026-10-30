@@ -6,27 +6,27 @@
   gap: 12px;
   min-height: 112px;
   padding: 16px 12px;
-  background-color: #FFFFFF;
-  border: 1px solid #D5DED8;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
-  color: #202B28;
+  color: var(--color-text);
   text-decoration: none;
   text-align: center;
   transition: border-color 0.2s, background-color 0.2s;
 }
 
 .category-card:hover {
-  border-color: #176B55;
-  background-color: #E7F3ED;
+  border-color: var(--color-link);
+  background-color: var(--color-surface-secondary);
 }
 
 .category-card:focus-visible {
-  outline: 3px solid #176B55;
+  outline: 3px solid var(--color-link);
   outline-offset: 3px;
 }
 
 .category-card__icon {
-  color: #176B55;
+  color: var(--color-link);
   font-size: 28px;
   line-height: 1;
 }
@@ -41,3 +41,4 @@
     transition: none;
   }
 }
+

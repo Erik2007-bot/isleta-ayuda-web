@@ -118,3 +118,36 @@ code {
 }
 
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Inter, Arial, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (max-width: 1023px) {
+  body {
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  }
+}
+
+
+
