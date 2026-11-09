@@ -6,6 +6,8 @@ import Login from "../pages/Login";
 import Registro from "../pages/Registro";
 import Ayuda from "../pages/Ayuda";
 import Error404 from "../pages/Error404";
+import Perfil from "../pages/Perfil";
+import ProtectedRoute from "../components/auth/ProtectedRoute";
 
 export default function AppRoutes() {
   return (
@@ -16,6 +18,9 @@ export default function AppRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/registro" element={<Registro />} />
       <Route path="/ayuda" element={<Ayuda />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path="/perfil" element={<Perfil />} />
+      </Route>
       <Route path="*" element={<Error404 />} />
     </Routes>
   );
