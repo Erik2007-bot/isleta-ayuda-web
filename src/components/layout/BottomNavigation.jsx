@@ -21,7 +21,7 @@ export default function BottomNavigation() {
         <span>Ayuda</span>
       </NavLink>
 
-      <NavLink to="/login">
+      <NavLink to="/perfil">
         <UserRound size={24} strokeWidth={1.8} aria-hidden="true" />
         <span>Perfil</span>
       </NavLink>
