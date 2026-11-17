@@ -1,0 +1,102 @@
+.recursos {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 100px;
+  text-align: left;
+  color: var(--color-text);
+}
+
+.recursos h1 {
+  margin: 0 0 12px;
+  font-size: clamp(28px, 5vw, 36px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: normal;
+  color: var(--color-text);
+}
+
+.recursos__intro,
+.recursos__results > p {
+  color: var(--color-text-secondary);
+}
+
+.recursos__results { margin-top: 24px; }
+
+.recursos__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.recurso-card {
+  height: 100%;
+  min-width: 0;
+  padding: 20px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow-wrap: anywhere;
+}
+
+.recurso-card h2 {
+  margin: 0 0 12px;
+  color: var(--color-text);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.recurso-card__description {
+  white-space: pre-line;
+  color: var(--color-text-secondary);
+}
+
+.recurso-card__details { margin: 16px 0 0; }
+.recurso-card__details > div + div { margin-top: 12px; }
+.recurso-card__details dt { font-weight: 600; }
+.recurso-card__details dd { margin: 2px 0 0; color: var(--color-text-secondary); }
+
+.recurso-card__categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.recurso-card__categories li {
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--color-surface-secondary);
+  color: var(--color-link);
+  font-size: 0.9rem;
+}
+
+.recursos__error {
+  padding: 20px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.recursos__error button {
+  min-height: 48px;
+  margin-top: 16px;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: var(--color-primary-text);
+  cursor: pointer;
+}
+
+.recursos__error button:hover { background: var(--color-primary-hover); }
+.recursos__error button:focus-visible { outline: 3px solid var(--color-link); outline-offset: 3px; }
+
+@media (min-width: 768px) {
+  .recursos__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
