@@ -23,6 +23,62 @@
 
 .recursos__results { margin-top: 24px; }
 
+.recursos__filters {
+  display: grid;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.recursos__filters .search-bar {
+  width: 100%;
+  max-width: none;
+}
+
+.recursos__category label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.recursos__category select {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 12px 16px;
+  border: 1px solid var(--color-input-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.recursos__category select:disabled { opacity: 0.7; }
+
+.recursos__active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-width: 0;
+}
+
+.recursos__active-filters button {
+  min-height: 48px;
+  max-width: 100%;
+  padding: 10px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface-secondary);
+  color: var(--color-link);
+  overflow-wrap: anywhere;
+  text-align: left;
+  cursor: pointer;
+}
+
+.recursos__active-filters button:hover { border-color: var(--color-link); }
+.recursos__active-filters button:focus-visible,
+.recursos__category select:focus-visible { outline: 3px solid var(--color-link); outline-offset: 3px; }
+.recursos__empty { margin-top: 16px; }
+
 .recursos__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -98,5 +154,7 @@
 .recursos__error button:focus-visible { outline: 3px solid var(--color-link); outline-offset: 3px; }
 
 @media (min-width: 768px) {
+  .recursos__filters { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); align-items: end; }
+  .recursos__active-filters { grid-column: 1 / -1; }
   .recursos__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

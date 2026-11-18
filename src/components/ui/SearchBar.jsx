@@ -1,38 +1,45 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useId, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { actualizarParametro } from "../../recursos/filtros";
 import "../../styles/SearchBar.css";
 
 export default function SearchBar() {
-  const [busqueda, setBusqueda] = useState("");
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+
+  function buscar(termino) {
+    const siguientes = actualizarParametro(searchParams, "q", termino);
+    navigate({ pathname: "/recursos", search: siguientes.toString() });
+  }
+
+  return <SearchForm key={searchParams.toString()} initialValue={searchParams.get("q") || ""} onSearch={buscar} />;
+}
+
+function SearchForm({ initialValue, onSearch }) {
+  const [busqueda, setBusqueda] = useState(initialValue);
+  const inputId = useId();
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    const termino = busqueda.trim();
-
-    if (!termino) {
-      return;
-    }
-
-    navigate(`/recursos?q=${encodeURIComponent(termino)}`);
+    setBusqueda(busqueda.trim());
+    onSearch(busqueda.trim());
   }
 
   return (
     <form className="search-bar" onSubmit={handleSubmit} role="search">
-      <label htmlFor="buscar-recursos">
+      <label htmlFor={inputId}>
         Buscar recursos
       </label>
 
       <div className="search-bar__controls">
         <input
-          id="buscar-recursos"
+          id={inputId}
+          name="q"
           type="search"
           placeholder="¿Qué recurso necesitas?"
           value={busqueda}
           onChange={(event) => setBusqueda(event.target.value)}
-          required
-          minLength={2}
         />
 
         <button type="submit">
