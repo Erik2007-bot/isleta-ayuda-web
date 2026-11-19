@@ -3,6 +3,7 @@ import Header from "./components/layout/Header";
 import BottomNavigation from "./components/layout/BottomNavigation";
 import ThemeToggle from "./components/ui/ThemeToggle";
 import AppRoutes from "./routes/AppRoutes";
+import ConnectionStatus from "./components/ui/ConnectionStatus";
 
 function getInitialTheme() {
   try {
@@ -34,6 +35,7 @@ export default function App() {
   return (
     <>
       <Header />
+      <ConnectionStatus />
       <div className="theme-toggle-container">
         <ThemeToggle theme={theme} onToggle={toggleTheme} />
       </div>

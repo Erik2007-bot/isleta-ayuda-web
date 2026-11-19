@@ -7,6 +7,7 @@ export async function submitAuth(mode, values) {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       credentials: "omit",
+      cache: "no-store",
       body: JSON.stringify(values),
       signal: AbortSignal.timeout(15000),
     });
@@ -41,6 +42,7 @@ export async function getProfile(token) {
     response = await fetch(`${API_URL}/auth/me`, {
       headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
       credentials: "omit",
+      cache: "no-store",
       signal: AbortSignal.timeout(15000),
     });
   } catch {
