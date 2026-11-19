@@ -6,6 +6,7 @@ export async function getRecursos(signal) {
     response = await fetch(`${API_URL}/recursos`, {
       headers: { Accept: "application/json" },
       credentials: "omit",
+      cache: "no-store",
       signal: signal
         ? AbortSignal.any([signal, AbortSignal.timeout(15000)])
         : AbortSignal.timeout(15000),
