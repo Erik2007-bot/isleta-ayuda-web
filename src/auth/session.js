@@ -1,9 +1,10 @@
-import { getProfile, submitAuth } from "../services/auth.js";
+import { getProfile, submitAuth, updateProfileName } from "../services/auth.js";
 
-export function createAuthSession(api = { getProfile, submitAuth }) {
-  let snapshot = { user: null, expiresAt: null, message: "" };
+export function createAuthSession(api = { getProfile, submitAuth, updateProfileName }) {
+  let snapshot = { user: null, expiresAt: null, message: "", savingName: false };
   let token = null;
   let generation = 0;
+  let profileVersion = 0;
   let timer;
   const listeners = new Set();
   const publish = (next) => {
@@ -14,7 +15,7 @@ export function createAuthSession(api = { getProfile, submitAuth }) {
     generation++;
     clearTimeout(timer);
     token = null;
-    publish({ user: null, expiresAt: null, message });
+    publish({ user: null, expiresAt: null, message, savingName: false });
   }
   function checkExpiry() {
     clearTimeout(timer);
@@ -41,26 +42,40 @@ export function createAuthSession(api = { getProfile, submitAuth }) {
     if (attempt !== generation) throw new Error("El inicio de sesión se ha cancelado.");
     if (expiresAt <= Date.now()) throw new Error("La sesión recibida ha caducado. Inicia sesión de nuevo.");
     token = data.token;
-    publish({ user, expiresAt, message: "" });
+    publish({ user, expiresAt, message: "", savingName: false });
     checkExpiry();
   }
-  async function refreshProfile() {
+  function refreshProfile() {
+    return requestProfile((currentToken) => api.getProfile(currentToken));
+  }
+  function saveProfileName(nombre) {
+    return requestProfile((currentToken) => api.updateProfileName(currentToken, nombre), { savingName: true });
+  }
+  async function requestProfile(request, { savingName = false } = {}) {
     checkExpiry();
-    if (!token) return;
+    if (!token || (savingName && snapshot.savingName)) return;
     const attempt = generation;
+    const version = profileVersion;
+    const currentToken = token;
+    if (savingName) publish({ ...snapshot, savingName: true });
     try {
-      const user = await api.getProfile(token);
+      const user = await request(currentToken);
       checkExpiry();
-      if (attempt === generation) publish({ ...snapshot, user });
+      if (attempt !== generation) return;
+      if (savingName) profileVersion++;
+      if (savingName || version === profileVersion) publish({ ...snapshot, user });
+      return user;
     } catch (error) {
       if (attempt !== generation) return;
       if (error.status === 401) logout("Tu sesión ha caducado. Inicia sesión de nuevo.");
       throw error;
+    } finally {
+      if (savingName && attempt === generation) publish({ ...snapshot, savingName: false });
     }
   }
   return {
     subscribe(listener) { listeners.add(listener); return () => listeners.delete(listener); },
     getSnapshot: () => snapshot,
-    login, logout, refreshProfile, checkExpiry,
+    login, logout, refreshProfile, saveProfileName, checkExpiry,
   };
 }

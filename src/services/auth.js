@@ -36,11 +36,24 @@ export async function submitAuth(mode, values) {
   }
 }
 
-export async function getProfile(token) {
+export function getProfile(token) {
+  return requestProfile(token, "/me", {}, "No se ha podido consultar tu perfil. Inténtalo de nuevo.");
+}
+
+export function updateProfileName(token, nombre) {
+  return requestProfile(token, "/me/nombre", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ nombre }),
+  }, "No se ha podido guardar tu nombre. Inténtalo de nuevo.");
+}
+
+async function requestProfile(token, path, options, failureMessage) {
   let response;
   try {
-    response = await fetch(`${API_URL}/auth/me`, {
-      headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
+    response = await fetch(`${API_URL}/auth${path}`, {
+      ...options,
+      headers: { ...options.headers, Authorization: `Bearer ${token}`, Accept: "application/json" },
       credentials: "omit",
       cache: "no-store",
       signal: AbortSignal.timeout(15000),
@@ -53,7 +66,7 @@ export async function getProfile(token) {
     error.status = 401;
     throw error;
   }
-  if (!response.ok) throw new Error("No se ha podido consultar tu perfil. Inténtalo de nuevo.");
+  if (!response.ok) throw new Error(failureMessage);
   try {
     const user = await response.json();
     if (user?.idUsuario == null || typeof user.nombre !== "string" || typeof user.email !== "string" || typeof user.rol !== "string") {

@@ -13,5 +13,12 @@ export default function AuthProvider({ children }) {
       document.removeEventListener("visibilitychange", session.checkExpiry);
     };
   }, [session]);
-  return <AuthContext.Provider value={{ ...state, login: session.login, logout: session.logout, refreshProfile: session.refreshProfile }}>{children}</AuthContext.Provider>;
+  const auth = {
+    ...state,
+    login: session.login,
+    logout: session.logout,
+    refreshProfile: session.refreshProfile,
+    saveProfileName: session.saveProfileName,
+  };
+  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 }

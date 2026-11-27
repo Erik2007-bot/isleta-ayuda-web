@@ -106,6 +106,7 @@
 .auth__profile { margin: 24px 0; overflow-wrap: anywhere; }
 .auth__profile dt { font-weight: 600; margin-top: 16px; }
 .auth__profile dd { margin: 4px 0 0; color: var(--color-text-secondary); }
+.auth__profile-form { margin-bottom: 24px; }
 .auth__panel > button { width: 100%; }
 .auth h1:focus-visible { outline: 3px solid var(--color-link); outline-offset: 3px; }
 
