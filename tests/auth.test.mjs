@@ -104,6 +104,25 @@ test("un 401 tardío de una sesión anterior no cierra una sesión nueva", async
   } finally { session.logout(); }
 });
 
+test("una consulta de perfil tardía no sobrescribe el nombre recién guardado", async () => {
+  let resolveRefresh;
+  const actualizado = { ...user, nombre: "Ana María" };
+  const session = createAuthSession(api({
+    getProfile: async () => session.getSnapshot().user
+      ? new Promise((resolve) => { resolveRefresh = resolve; })
+      : user,
+    updateProfileName: async () => actualizado,
+  }));
+  try {
+    await session.login(credentials);
+    const refresh = session.refreshProfile();
+    await session.saveProfileName(actualizado.nombre);
+    resolveRefresh(user);
+    await refresh;
+    assert.deepEqual(session.getSnapshot().user, actualizado);
+  } finally { session.logout(); }
+});
+
 test("servicio envía Bearer y no expone respuestas sensibles", async () => {
   const originalFetch = globalThis.fetch;
   try {
